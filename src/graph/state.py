@@ -3,20 +3,19 @@ from langgraph.graph import add_messages
 
 class State(TypedDict, total=False):
     ship_id: str
-    navio: str
-    proposta: str
-    revisao: str
-    rodada: str
+    navio: dict
+    proposta: dict
+    revisao: dict
+    rodada: int
     resultado: str 
 
-ESTADO_INICIAL: State = (
+ESTADO_INICIAL: State = {
     "ship_id": "",
     "navio": "",
     "proposta": "",
     "revisao": "",
-    "rodada": "",
+    "rodada": 0,
     "resultado": ""
-
-)
+}
 
 
