@@ -3,7 +3,7 @@ from graph import state
 from pydantic import BaseModel
 from graph.state import State
 import json
-from prompt.navegador_prompt import NAVEGADOR_PROMPT
+from graph.prompt.navegador_prompt import NAVEGADOR_PROMPT
 from utils.llm_adapter import get_llm
 
 
@@ -19,6 +19,7 @@ def navegador(state: State) -> State:
     feedback = ""
     aprovado = state["revisao"].get("aprovado")
     if aprovado is False:
+        print("\nNavegador: Revisão não aprovada, gerando nova proposta...\n")
         feedback = state["revisao"]["motivo"]
     navio = state["navio"]
     navio_json = json.dumps(navio, ensure_ascii=False)

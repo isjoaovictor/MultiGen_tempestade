@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from graph.state import State
 import json
-from prompt.revisor_prompt import REVISOR_PROMPT
+from graph.prompt.revisor_prompt import REVISOR_PROMPT
 from utils.llm_adapter import get_llm
 
 class Revisao(BaseModel):
