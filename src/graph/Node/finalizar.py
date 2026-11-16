@@ -1,4 +1,4 @@
-from graph.state import State
+from src.graph.state import State
 
 
 def finalizar(state: State) -> State:

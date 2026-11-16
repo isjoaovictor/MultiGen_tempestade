@@ -1,8 +1,8 @@
 from pydantic import BaseModel
-from graph.state import State
+from src.graph.state import State
 import json
-from graph.prompt.revisor_prompt import REVISOR_PROMPT
-from utils.llm_adapter import get_llm
+from src.graph.prompt.revisor_prompt import REVISOR_PROMPT
+from src.utils.llm_adapter import get_llm
 
 class Revisao(BaseModel):
     aprovado: bool

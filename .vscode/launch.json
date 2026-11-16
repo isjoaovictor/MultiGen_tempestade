@@ -1,0 +1,15 @@
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug grafo MCP",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "src.app.main",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
+        }
+    ]
+}

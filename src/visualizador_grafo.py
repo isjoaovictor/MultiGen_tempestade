@@ -1,0 +1,4 @@
+from src.graph.builder import graph
+from IPython.display import Image, display
+
+display(Image(graph.get_graph().draw_mermaid_png()))

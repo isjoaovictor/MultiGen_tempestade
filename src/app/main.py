@@ -1,13 +1,14 @@
+import asyncio
 
 from dotenv import load_dotenv
-from graph.state import State
-from graph.builder import graph
+from src.graph.state import State
+from src.graph.builder import graph
 from langgraph.types import Command
 
 
+async def main():
+    load_dotenv()
 
-def main():
-    load_dotenv()  # Carrega as variáveis de ambiente do arquivo .env
     while True:
         escolha_navio = input(
             "\nEscolha um navio para a simulação:\n"
@@ -29,31 +30,54 @@ def main():
                 continue
         break
 
-    estado_inicial: State = {"ship_id": ship_id}
-    config = {"configurable": {"thread_id": "frota-1"}}
-    resposta = graph.invoke(estado_inicial, config=config)
+    estado_inicial: State = {
+        "ship_id": ship_id,
+        "rodada": 0,
+        "tentativas": 0,
+    }
+
+    config = {
+        "configurable": {
+            "thread_id": "frota-1"
+        }
+    }
+
+    resposta = await graph.ainvoke(
+        estado_inicial,
+        config=config
+    )
 
     pausas = resposta.get("__interrupt__", [])
 
     if pausas:
-        print(pausas[0].value)  # Exibe a mensagem de pausa
-        retorno = input(f"\nDeseja continuar? (s/n): ").strip().lower()
-        while retorno not in ["s", "n"]:
-            retorno = input(f"\nOpção inválida. Deseja continuar? (s/n): ").strip().lower()
-        motivo = ""
-        if retorno == "s":
-            motivo = input("\nDigite o motivo da exceção: ").strip()
+        print(pausas[0].value)
 
-        resposta = graph.invoke(
+        retorno = input(
+            "\nDeseja continuar? (s/n): "
+        ).strip().lower()
+
+        while retorno not in ["s", "n"]:
+            retorno = input(
+                "\nOpção inválida. Deseja continuar? (s/n): "
+            ).strip().lower()
+
+        motivo = ""
+
+        if retorno == "s":
+            motivo = input(
+                "\nDigite o motivo da exceção: "
+            ).strip()
+
+        resposta = await graph.ainvoke(
             Command(
                 resume=retorno == "s",
                 update={"motivo_excecao": motivo},
-            ), config=config)
+            ),
+            config=config
+        )
 
     print(resposta["resultado"])
 
 
 if __name__ == "__main__":
-    main()
-
-
+    asyncio.run(main())

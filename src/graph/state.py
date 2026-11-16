@@ -1,4 +1,4 @@
-from typing import Annotated, TypedDict
+from typing import TypedDict
 
 
 class State(TypedDict, total=False):
@@ -6,18 +6,31 @@ class State(TypedDict, total=False):
     navio: dict
     proposta: dict
     revisao: dict
+
     rodada: int
-    resultado: str 
+    tentativas: int
+
+    resultado: str
+    resultado_execucao: dict
+
     aprovado_operador: bool
     motivo_excecao: str
 
+    erro: dict
+    idempotency_key: str
+
+
 ESTADO_INICIAL: State = {
     "ship_id": "",
-    "navio": "",
-    "proposta": "",
-    "revisao": "",
+    "navio": {},
+    "proposta": {},
+    "revisao": {},
     "rodada": 0,
-    "resultado": ""
+    "tentativas": 0,
+    "resultado": "",
+    "resultado_execucao": {},
+    "aprovado_operador": False,
+    "motivo_excecao": "",
+    "erro": {},
+    "idempotency_key": "",
 }
-
-

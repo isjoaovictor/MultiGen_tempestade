@@ -1,10 +1,9 @@
 from typing import Literal
-from graph import state
 from pydantic import BaseModel
-from graph.state import State
+from src.graph.state import State
 import json
-from graph.prompt.navegador_prompt import NAVEGADOR_PROMPT
-from utils.llm_adapter import get_llm
+from src.graph.prompt.navegador_prompt import NAVEGADOR_PROMPT
+from src.utils.llm_adapter import get_llm
 
 
 class Proposta(BaseModel):
